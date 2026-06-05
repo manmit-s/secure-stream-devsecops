@@ -10,7 +10,6 @@ jobs:
 security-pipeline:
 runs-on: ubuntu-latest
 
-```
 steps:
   # STEP 1: Checkout Code
   - name: Checkout Code
