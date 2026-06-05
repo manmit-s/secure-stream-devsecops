@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: secure-stream-app
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: secure-stream-app
+
+  template:
+    metadata:
+      labels:
+        app: secure-stream-app
+
+    spec:
+      containers:
+        - name: secure-stream-app
+          image: secure-stream-app:latest
+
+          ports:
+            - containerPort: 5000
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+
+          livenessProbe:
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+
+          readinessProbe:
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
